@@ -11,7 +11,7 @@ function mapStateReducer(state, action) {
 }
 
 const defaultMapState = {
-  mapStyle: "mapbox://styles/mapbox/streets-v11",
+  mapStyle: "mapbox://styles/mapbox/dark-v11",
   viewState: {
     longitude: 77.64068,
     latitude: 12.979329,
