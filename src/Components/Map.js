@@ -12,8 +12,9 @@ import GeocoderControl from "./GeoCoder";
 import CameraSVG from "./SVG/Camera";
 import BackSVG from "./SVG/Back";
 
-const TOKEN =
-  "pk.eyJ1IjoicGIwNCIsImEiOiJjbGdlenRlMmUwbnNjM2VxM3c2dzR5OXN0In0.sGZ0JRtfkr6LiT-h4rZPWg";
+const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN || "";
+
+console.log(process.env.REACT_APP_MAPBOX_TOKEN);
 
 const Map = ({ setImgSrc, showCuboid, setShowCuboid }) => {
   const [initialView, setInitialView] = useState({
