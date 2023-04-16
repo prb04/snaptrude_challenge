@@ -14,8 +14,6 @@ import BackSVG from "./SVG/Back";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN || "";
 
-console.log(process.env.REACT_APP_MAPBOX_TOKEN);
-
 const Map = ({ setImgSrc, showCuboid, setShowCuboid }) => {
   const [initialView, setInitialView] = useState({
     longitude: 77.64068,
