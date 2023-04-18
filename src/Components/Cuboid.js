@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Engine,
   Color4,
@@ -10,9 +9,11 @@ import {
   StandardMaterial,
   Texture,
 } from "@babylonjs/core";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const Cuboid = ({ src }) => {
+  const [material, setMaterial] = useState(null);
+
   const canvasRef = useRef();
 
   const createScene = (engine, canvas) => {
@@ -37,9 +38,18 @@ const Cuboid = ({ src }) => {
     light.intensity = 1.6;
 
     // Creating material
-    const material = new StandardMaterial("material", scene);
-    const texture = new Texture(src, scene);
+    let material;
+    if (!material) {
+      material = new StandardMaterial("material", scene);
+    }
+    let texture;
+    if (src) {
+      texture = new Texture(src, scene);
+    } else {
+      texture = new Texture("default.png", scene);
+    }
     material.diffuseTexture = texture;
+    setMaterial(material);
 
     // Creating a box
     const options = {
@@ -79,15 +89,23 @@ const Cuboid = ({ src }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (material) {
+      let texture;
+      if (src) {
+        texture = new Texture(src, material.getScene());
+      } else {
+        texture = new Texture("default.png", material.getScene());
+      }
+      material.diffuseTexture = texture;
+    }
+  }, [src]);
+
   return (
     <canvas
       style={{
-        width: "100vw",
+        width: "30vw",
         height: "100vh",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        translate: "-50% -50%",
       }}
       ref={canvasRef}
     />

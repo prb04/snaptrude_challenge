@@ -14,14 +14,12 @@ import BackSVG from "./SVG/Back";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN || "";
 
-const Map = ({ setImgSrc, showCuboid, setShowCuboid }) => {
+const Map = ({ setImgSrc }) => {
   const [initialView, setInitialView] = useState({
     longitude: 77.64068,
     latitude: 12.979329,
     zoom: 14,
     pitch: 2,
-    width: window.innerWidth,
-    height: window.innerHeight,
   });
 
   const mapStyle = useSelector((s) => s.mapStyle);
@@ -57,15 +55,10 @@ const Map = ({ setImgSrc, showCuboid, setShowCuboid }) => {
   }, []);
 
   const handleImageCapture = () => {
-    if (showCuboid) {
-      setShowCuboid(false);
-      return;
-    }
     const { longitude, latitude, zoom, pitch } = viewState;
     setImgSrc(
       `https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/${longitude},${latitude},${zoom},0,${pitch}/1280x720?access_token=${TOKEN}`
     );
-    setShowCuboid(true);
   };
 
   return (
@@ -75,7 +68,7 @@ const Map = ({ setImgSrc, showCuboid, setShowCuboid }) => {
         mapboxAccessToken={TOKEN}
         onMove={onMove}
         mapStyle={mapStyle}
-        style={{ width: "100vw", height: "100vh" }}
+        style={{ width: "70vw", height: "100vh" }}
         dragRotate={true}
       >
         <button
@@ -83,14 +76,14 @@ const Map = ({ setImgSrc, showCuboid, setShowCuboid }) => {
           className="flex items-center gap-2 absolute z-50 right-2.5 top-4 bg-gray-300 text-center text-black w-18 h-8 rounded-sm px-2 font-bold leading-[21.82px] "
         >
           {" "}
-          {showCuboid ? <BackSVG /> : <CameraSVG />}
-          {showCuboid ? `Back to Map` : `Show Cuboid`}
+          {<CameraSVG />}
+          {`Capture Image`}
         </button>
-        {/* <Marker
+        <Marker
           longitude={viewState.longitude}
           latitude={viewState.latitude}
           color="green"
-        /> */}
+        />
         <ScaleControl />
 
         <NavigationControl position="bottom-right" />

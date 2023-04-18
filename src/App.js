@@ -4,16 +4,13 @@ import Cuboid from "./Components/Cuboid";
 
 const App = () => {
   const [imgSrc, setImgSrc] = useState("");
-  const [showCuboid, setShowCuboid] = useState(false);
-
+  console.log(imgSrc);
   return (
-    <div className="App">
-      <Map
-        setImgSrc={setImgSrc}
-        showCuboid={showCuboid}
-        setShowCuboid={setShowCuboid}
-      />
-      {showCuboid && <Cuboid src={imgSrc} />}
+    <div className="flex h-screen">
+      <Map setImgSrc={setImgSrc} />
+      <div className="bg-black">
+        <Cuboid src={imgSrc} />
+      </div>
     </div>
   );
 };
